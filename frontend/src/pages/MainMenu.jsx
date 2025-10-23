@@ -1,51 +1,37 @@
 // src/pages/MainMenu.jsx
-import React, { useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
+import React from "react";
+import { Link } from "react-router-dom";
 import HeroBanner from "../components/HeroBanner";
-
-/**
- * Simple Main Menu with Play (seasons), Profile, and Settings
- */
+import menuBg from "../assets/backgrounds/Sticky.jpeg"; // ✅ your background image
 
 export default function MainMenu() {
-  const navigate = useNavigate();
-  const { user, logout } = useContext(AuthContext);
-
   return (
-    <div className="min-h-screen bg-gray-900 text-white">
+    <div
+      className="min-h-screen flex-center bg-cover bg-center relative"
+      style={{ backgroundImage: `url(${menuBg})` }}
+    >
+      {/* Dark overlay for better contrast */}
+      <div className="absolute inset-0 bg-black opacity-50" />
+
       <HeroBanner />
-      <div className="max-w-4xl mx-auto p-6">
-        <div className="flex justify-between items-center mb-6">
-          <div>
-            <h1 className="text-3xl font-bold">StickQuest</h1>
-            <p className="text-sm text-gray-300">Seasoned fighters only</p>
-          </div>
-          <div className="text-right">
-            <div className="text-sm">Hello, <span className="font-semibold">{user?.username}</span></div>
-            <div className="mt-1">
-              <button onClick={() => navigate("/profile")} className="mr-3 px-3 py-1 bg-gray-700 rounded">Profile</button>
-              <button onClick={logout} className="px-3 py-1 bg-red-600 rounded">Logout</button>
-            </div>
-          </div>
+
+      {/* Main menu card */}
+      <div className="relative z-10 w-full max-w-md p-6 bg-white/90 rounded-lg shadow-lg fade-in text-center">
+        <h1 className="text-3xl font-bold mb-6 text-indigo-700">StickQuest</h1>
+
+        <div className="space-y-4">
+          <Link to="/seasons">
+            <button className="w-full p-3 rounded bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition">
+              Play Game
+            </button>
+          </Link>
+
+          <Link to="/profile">
+            <button className="w-full p-3 rounded bg-gray-200 text-gray-800 font-semibold hover:bg-gray-300 transition">
+              Profile
+            </button>
+          </Link>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="col-span-2 p-6 bg-white/5 rounded shadow">
-            <h2 className="text-xl mb-2">Play</h2>
-            <p className="text-sm text-gray-300 mb-4">Fight your way through seasons and claim the victory flag.</p>
-            <button onClick={() => navigate("/seasons")} className="bg-indigo-600 hover:bg-indigo-700 px-4 py-2 rounded">Play Seasons</button>
-          </div>
-
-          <div className="p-6 bg-white/5 rounded shadow">
-            <h3 className="font-semibold">Quick Actions</h3>
-            <ul className="mt-3 space-y-2 text-sm">
-              <li><button onClick={() => navigate("/profile")} className="text-indigo-400 hover:underline">Open Profile</button></li>
-              <li><button onClick={() => navigate("/level-complete")} className="text-indigo-400 hover:underline">Test Level Complete</button></li>
-            </ul>
-          </div>
-        </div>
-
       </div>
     </div>
   );

@@ -1,16 +1,11 @@
 // src/pages/SeasonSelect.jsx
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import api from "../utils/api";
-
-/**
- * Season selector page - fetch seasons from api.getSeasons()
- * Displays list of seasons (title, description, start button)
- */
+import { Link } from "react-router-dom";
+import HeroBanner from "../components/HeroBanner";
 
 export default function SeasonSelect() {
   const [seasons, setSeasons] = useState([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     (async () => {
@@ -20,18 +15,23 @@ export default function SeasonSelect() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-800 text-white p-6">
-      <div className="max-w-4xl mx-auto">
-        <h2 className="text-2xl font-bold mb-4">Choose a Season</h2>
-        <div className="grid md:grid-cols-2 gap-4">
+    <div
+      className="min-h-screen flex-center bg-cover bg-center relative"
+      style={{ backgroundImage: `url('/assets/backgrounds/seasons-bg.jpg')` }}
+    >
+      <div className="absolute inset-0 bg-black opacity-50" />
+      <HeroBanner />
+
+      <div className="relative z-10 w-full max-w-3xl p-6 bg-white/90 rounded-lg shadow-lg fade-in">
+        <h2 className="text-2xl font-bold text-center mb-4">Select a Season</h2>
+        <div className="grid gap-4 md:grid-cols-2">
           {seasons.map((s) => (
-            <div key={s.id} className="p-4 bg-white/5 rounded">
-              <h3 className="text-xl font-semibold">{s.title}</h3>
-              <p className="text-sm text-gray-300">{s.description}</p>
-              <div className="mt-3">
-                <button onClick={() => navigate(`/seasons/${s.id}`)} className="px-3 py-2 bg-indigo-600 rounded">Open Season</button>
+            <Link key={s.id} to={`/seasons/${s.id}`}>
+              <div className="p-4 bg-indigo-600 text-white rounded-lg text-center hover:bg-indigo-700 cursor-pointer">
+                <h3 className="font-semibold">{s.title}</h3>
+                <p className="text-sm">{s.description}</p>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
