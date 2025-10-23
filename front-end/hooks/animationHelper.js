@@ -4,4 +4,5 @@ export const animateStickman = (setStickmanFrame) => {
     frame = (frame + 1) % 4;
     setStickmanFrame(frame);
   }, 150);
+  
 };
