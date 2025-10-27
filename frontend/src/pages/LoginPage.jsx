@@ -37,7 +37,7 @@ export default function LoginPage() {
   return (
     // ✅ Updated outer div to use your local background image
     <div
-      className="page-container flex items-center justify-center bg-cover bg-center min-h-screen relative"
+      className="page-container flex items-center justify-center bg-cover bg-center min-h-screen"
       style={{ backgroundImage: `url(${loginBg})` }}
     >
       <div className="absolute inset-0 bg-black opacity-50" />

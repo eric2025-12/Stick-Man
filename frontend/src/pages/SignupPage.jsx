@@ -3,6 +3,7 @@ import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import HeroBanner from "../components/HeroBanner";
+import StickyBg from "../assets/backgrounds/Sticky.jpeg"; // ✅ added image import
 
 export default function SignupPage() {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ export default function SignupPage() {
   return (
     <div
       className="min-h-screen flex-center bg-cover bg-center relative"
-      style={{ backgroundImage: `url('/assets/backgrounds/signup-bg.jpg')` }}
+      style={{ backgroundImage: `url('/assets/backgrounds/Sticky.jpeg')` }}
     >
       <div className="absolute inset-0 bg-black opacity-50" />
       <HeroBanner />
