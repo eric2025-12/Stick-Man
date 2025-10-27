@@ -1,29 +1,33 @@
 // src/pages/LoginPage.jsx
 import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
+import AuthContext from "../context/AuthorContext";
 import HeroBanner from "../components/HeroBanner";
-import loginBg from "../assets/backgrounds/Stickman-Arena-Showdown.png"; // ✅ added image import
+import loginBg from "../assets/backgrounds/Stickman-Arena-Showdown.png"; // ✅ image import
 
 /**
  * Login page with large stickmen axes background.
  * Uses AuthContext.login to authenticate the user.
  */
 
-export default function LoginPage() {
+function LoginPage() {
   const navigate = useNavigate();
   const { login, loading } = useContext(AuthContext);
   const [form, setForm] = useState({ username: "", password: "" });
   const [error, setError] = useState(null);
 
-  const handleChange = (e) => setForm((s) => ({ ...s, [e.target.name]: e.target.value }));
+  const handleChange = (e) =>
+    setForm((s) => ({
+      ...s,
+      [e.target.name]: e.target.value,
+    }));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
     const res = await login(form);
     if (res.success) {
-      navigate("/"); // go to main menu
+      navigate("/");
     } else {
       setError(res.error || "Login failed");
     }
@@ -35,7 +39,6 @@ export default function LoginPage() {
   };
 
   return (
-    // ✅ Updated outer div to use your local background image
     <div
       className="page-container flex items-center justify-center bg-cover bg-center min-h-screen relative"
       style={{ backgroundImage: `url(${loginBg})` }}
@@ -85,3 +88,6 @@ export default function LoginPage() {
     </div>
   );
 }
+
+// ✅ Export moved to bottom
+export default LoginPage;
