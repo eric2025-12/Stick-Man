@@ -16,9 +16,10 @@ export default function SeasonSelect() {
 
   return (
     <div
-      className="min-h-screen flex-center bg-cover bg-center relative"
-      style={{ backgroundImage: `url('/assets/backgrounds/seasons-bg.jpg')` }}
-    >
+  className="min-h-screen w-full h-screen flex-center bg-cover bg-center relative"
+  style={{ backgroundImage: `url('/assets/backgrounds/Sticky.jpeg')` }}
+>
+
       <div className="absolute inset-0 bg-black opacity-50" />
       <HeroBanner />
 
