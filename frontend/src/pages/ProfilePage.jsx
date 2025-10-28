@@ -1,6 +1,6 @@
 // src/pages/ProfilePage.jsx
 import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../context/AuthContext";
+import AuthContext from "../context/AuthorContext";
 import api from "../utils/api";
 import HeroBanner from "../components/HeroBanner";
 
@@ -9,14 +9,16 @@ import HeroBanner from "../components/HeroBanner";
  * Styled consistently with other pages: centered content, background, and fade-in.
  */
 
-export default function ProfilePage() {
+function ProfilePage() {
   const { user } = useContext(AuthContext);
   const [profile, setProfile] = useState(null);
 
   useEffect(() => {
     (async () => {
       const res = await api.getProfile();
-      setProfile(res.profile || { username: user?.username, coins: 0, badges: [] });
+      setProfile(
+        res.profile || { username: user?.username, coins: 0, badges: [] }
+      );
     })();
   }, [user]);
 
@@ -28,7 +30,7 @@ export default function ProfilePage() {
       {/* Dark overlay */}
       <div className="absolute inset-0 bg-black opacity-50" />
 
-      {/* Hero banner if needed */}
+      {/* Hero banner */}
       <HeroBanner />
 
       {/* Profile content */}
@@ -37,10 +39,13 @@ export default function ProfilePage() {
 
         <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <h3 className="font-semibold text-lg">{profile?.username || user?.username}</h3>
+            <h3 className="font-semibold text-lg">
+              {profile?.username || user?.username}
+            </h3>
             <p className="text-sm text-gray-300">Coins: {profile?.coins ?? 0}</p>
             <p className="text-sm text-gray-300">
-              Season: {user?.progress?.season ?? 1} / Level: {user?.progress?.level ?? 1}
+              Season: {user?.progress?.season ?? 1} / Level:{" "}
+              {user?.progress?.level ?? 1}
             </p>
           </div>
 
@@ -48,7 +53,10 @@ export default function ProfilePage() {
             <h4 className="font-semibold text-lg">Badges</h4>
             <div className="mt-2 flex gap-2 flex-wrap">
               {(profile?.badges?.length ? profile.badges : ["Novice"]).map((b, i) => (
-                <div key={i} className="px-2 py-1 bg-indigo-700 rounded text-sm text-white">
+                <div
+                  key={i}
+                  className="px-2 py-1 bg-indigo-700 rounded text-sm text-white"
+                >
                   {b}
                 </div>
               ))}
@@ -59,3 +67,5 @@ export default function ProfilePage() {
     </div>
   );
 }
+
+export default ProfilePage;
