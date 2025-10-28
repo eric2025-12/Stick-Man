@@ -1,4 +1,4 @@
-// src/pages/LoginPage.jsx
+z// src/pages/LoginPage.jsx
 import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../context/AuthorContext";
@@ -35,8 +35,16 @@ function LoginPage() {
 
   return (
     <div
-      className="page-container flex items-center justify-center bg-cover bg-center min-h-screen"
-      style={{ backgroundImage: `url(${loginBg})` }}
+      className="relative flex items-center justify-center min-h-screen overflow-hidden"
+      style={{
+        backgroundImage: `url(${loginBg})`,
+        backgroundRepeat: "no-repeat",
+        backgroundSize: "cover",       // ✅ Full screen cover
+        backgroundPosition: "center",  // ✅ Keep image centered
+        backgroundColor: "#000",
+        height: "100vh",
+        width: "100vw",
+      }}
     >
       {/* Dark overlay for readability */}
       <div className="absolute inset-0 bg-black/50" />
