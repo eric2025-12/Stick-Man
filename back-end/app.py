@@ -1,33 +1,35 @@
+# src/app.py
 from flask import Flask
-from flask_cors import CORS
-from flask_migrate import Migrate       # ✅ Import Migrate
-from models import db
-from config import Config
-from routes.auth_routes import auth_bp
-from routes.game_routes import game_bp
+from src.config.db import db
+
+# Import your Blueprints
+from src.routes.auth_routes import auth_bp
+from src.routes.game_routes import game_bp
+from src.routes.leaderboard_routes import leaderboard_bp
+from src.routes.season_routes import season_bp
 
 def create_app():
     app = Flask(__name__)
-    app.config.from_object(Config)
 
-    CORS(app)
+    # Database configuration
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///stickman.db'
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+    # Initialize database
     db.init_app(app)
 
-    # ✅ Initialize Flask-Migrate
-    migrate = Migrate(app, db)
+    # Register Blueprints
+    app.register_blueprint(auth_bp)
+    app.register_blueprint(game_bp)
+    app.register_blueprint(leaderboard_bp)
+    app.register_blueprint(season_bp)
 
-    # Register blueprints
-    app.register_blueprint(auth_bp, url_prefix="/api/auth")
-    app.register_blueprint(game_bp, url_prefix="/api/game")
-
-    @app.route("/")
+    # Test route
+    @app.route('/')
     def home():
-        return {"message": "Stick-Man Flask Backend Running"}
+        return "Stickman Arena Backend is Running!"
 
     return app
 
-# ✅ Create app instance
-app = create_app()
 
-if __name__ == "__main__":
-    app.run(debug=True)
+app = create_app()
