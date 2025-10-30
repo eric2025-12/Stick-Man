@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { GameContext } from "../context/GameContext";
+import  GameContext from "../context/GameContext";
 
 const HUD = () => {
   const { health, score, paused } = useContext(GameContext);

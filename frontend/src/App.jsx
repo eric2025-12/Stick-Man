@@ -1,14 +1,14 @@
 // src/App.jsx
 import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import AuthorContext, { AuthProvider } from "./context/AuthorContext.jsx";
+import AuthorContext, { AuthProvider } from "./context/AuthContext.jsx";
 
 import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import MainMenu from "./pages/MainMenu";
 import SeasonSelect from "./pages/SeasonSelect";
 import LevelSelect from "./pages/LevelSelect";
-import GamePlay from "./pages/GamePlay";
+import GamePlay from "./gameplay/GamePlay";
 import LevelComplete from "./pages/LevelComplete";
 import ProfilePage from "./pages/ProfilePage";
 

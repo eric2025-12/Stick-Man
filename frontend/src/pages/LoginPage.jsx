@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import AuthContext from "../context/AuthorContext";
+import AuthContext from "../context/AuthContext";
 import HeroBanner from "../components/HeroBanner";
 import loginBg from "../assets/backgrounds/Stickman-Arena-Showdown.png";
 

@@ -1,6 +1,6 @@
 // src/pages/ProfilePage.jsx
 import React, { useContext, useEffect, useState } from "react";
-import AuthContext from "../context/AuthorContext";
+import AuthContext from "../context/AuthContext";
 import api from "../utils/api";
 import HeroBanner from "../components/HeroBanner";
 

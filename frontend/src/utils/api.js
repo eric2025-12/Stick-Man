@@ -7,8 +7,6 @@
 const API_BASE = import.meta.env.VITE_API_BASE || "http://localhost:5000/api";
 
 async function request(path, options = {}) {
-  // For now return mock data for auth endpoints.
-  // Replace with actual fetch/axios logic for production.
   const url = `${API_BASE}${path}`;
   // Uncomment for real requests:
   // const res = await fetch(url, options);
@@ -17,16 +15,27 @@ async function request(path, options = {}) {
   // Simple local mocks:
   if (path.startsWith("/auth/login")) {
     return {
-      user: { id: "demo", username: options.body?.username || "demo", token: "demo-token", progress: { season: 1, level: 1 } },
+      token: "demo-token",
+      user: { 
+        id: options.body?.username || "demo",
+        username: options.body?.username || "demo",
+        progress: { season: 1, level: 1 }
+      },
     };
   }
+
   if (path.startsWith("/auth/signup")) {
     return {
-      user: { id: options.body?.username, username: options.body?.username, token: "demo-token", progress: { season: 1, level: 1 } },
+      token: "demo-token",
+      user: { 
+        id: options.body?.username,
+        username: options.body?.username,
+        progress: { season: 1, level: 1 }
+      },
     };
   }
+
   if (path.startsWith("/seasons")) {
-    // Return seasons metadata
     return {
       seasons: [
         { id: 1, title: "City Showdown", description: "Rooftops and neon traps", levels: 5 },
@@ -34,11 +43,12 @@ async function request(path, options = {}) {
       ],
     };
   }
+
   if (path.startsWith("/levels/")) {
-    // path example: /levels/1 -> return level detail
     const id = path.split("/")[2];
     return { id, title: `Level ${id}`, difficulty: id, traps: [], length: 120 + id * 30 };
   }
+
   if (path.startsWith("/profile")) {
     return { profile: { username: "demo", coins: 100, badges: [] } };
   }
@@ -46,6 +56,7 @@ async function request(path, options = {}) {
   return { ok: true };
 }
 
+// Export default object to match AuthContext import
 export default {
   request,
   login: (data) => request("/auth/login", { method: "POST", body: data }),

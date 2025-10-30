@@ -1,44 +1,42 @@
-import React, { useEffect, useState } from "react";
+// src/components/Player.jsx
+export default function Player(ctx, player, isPunching) {
+  if (!ctx || !player) return;
 
-const Player = () => {
-  const [position, setPosition] = useState({ x: 100, y: 300 });
-  const speed = 5;
+  const { x, y, health, isHit } = player;
 
-  useEffect(() => {
-    const handleKeyDown = (e) => {
-      setPosition((prev) => {
-        switch (e.key) {
-          case "ArrowRight":
-            return { ...prev, x: prev.x + speed };
-          case "ArrowLeft":
-            return { ...prev, x: prev.x - speed };
-          case "ArrowUp":
-            return { ...prev, y: prev.y - speed };
-          case "ArrowDown":
-            return { ...prev, y: prev.y + speed };
-          default:
-            return prev;
-        }
-      });
-    };
+  // === PLAYER COLOR LOGIC ===
+  // Player flashes red when hit, otherwise blue
+  const bodyColor = isHit ? "red" : "blue";
 
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, []);
+  // === DRAW BODY ===
+  ctx.fillStyle = bodyColor;
+  ctx.fillRect(x, y - 50, 30, 50);
 
-  return (
-    <div
-      style={{
-        position: "absolute",
-        left: position.x,
-        top: position.y,
-        width: "50px",
-        height: "50px",
-        backgroundColor: "red",
-        transition: "0.05s",
-      }}
-    ></div>
-  );
-};
+  // === DRAW HEAD ===
+  ctx.beginPath();
+  ctx.arc(x + 15, y - 60, 10, 0, Math.PI * 2);
+  ctx.fillStyle = "peachpuff";
+  ctx.fill();
 
-export default Player;
+  // === DRAW ARMS (Punch animation) ===
+  ctx.strokeStyle = "black";
+  ctx.lineWidth = 3;
+  ctx.beginPath();
+  ctx.moveTo(x + 15, y - 40);
+  ctx.lineTo(x + (isPunching ? 45 : -15), y - 30);
+  ctx.stroke();
+
+  // === DRAW LEGS ===
+  ctx.beginPath();
+  ctx.moveTo(x + 10, y);
+  ctx.lineTo(x, y + 20);
+  ctx.moveTo(x + 20, y);
+  ctx.lineTo(x + 30, y + 20);
+  ctx.stroke();
+
+  // === DRAW HEALTH BAR ===
+  ctx.fillStyle = "red";
+  ctx.fillRect(x, y - 80, 50, 5);
+  ctx.fillStyle = "lime";
+  ctx.fillRect(x, y - 80, Math.max(0, health / 2), 5);
+}
