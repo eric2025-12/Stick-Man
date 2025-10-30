@@ -12,10 +12,14 @@ function SignupPage() {
   const [error, setError] = useState(null);
 
   const handleChange = (e) =>
+<<<<<<< HEAD
     setForm((s) => ({
       ...s,
       [e.target.name]: e.target.value,
     }));
+=======
+    setForm((s) => ({ ...s, [e.target.name]: e.target.value }));
+>>>>>>> origin/michael
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -44,15 +48,47 @@ function SignupPage() {
       {/* Dark overlay for readability */}
       <div className="absolute inset-0 bg-black/50" />
 
+<<<<<<< HEAD
       {/* Centered Content */}
       <div className="relative z-10 flex flex-col items-center space-y-6">
         <HeroBanner />
+=======
+      <div className="relative z-10 w-full max-w-md p-6 bg-white/90 rounded-lg shadow-lg fade-in">
+        <h2 className="text-2xl font-bold text-center mb-4">Create Account</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            name="username"
+            value={form.username}
+            onChange={handleChange}
+            required
+            placeholder="Username"
+            className="w-full p-3 rounded border"
+          />
+          <input
+            name="password"
+            value={form.password}
+            onChange={handleChange}
+            type="password"
+            required
+            placeholder="Password"
+            className="w-full p-3 rounded border"
+          />
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-indigo-600 hover:bg-indigo-700 text-white p-3 rounded"
+          >
+            {loading ? "Signing up..." : "Sign Up"}
+          </button>
+        </form>
+>>>>>>> origin/michael
 
         <div className="w-full max-w-md p-6 bg-white/90 rounded-lg shadow-lg">
           <h2 className="text-2xl font-bold text-center mb-4 text-gray-900">
             Create Your Account
           </h2>
 
+<<<<<<< HEAD
           <form onSubmit={handleSubmit} className="space-y-4">
             <input
               name="username"
@@ -96,10 +132,20 @@ function SignupPage() {
               Already have an account?
             </Link>
           </div>
+=======
+        <div className="mt-4 text-center text-sm">
+          <Link to="/login" className="text-indigo-600 hover:underline">
+            Already have an account? Login
+          </Link>
+>>>>>>> origin/michael
         </div>
       </div>
     </div>
   );
 }
 
+<<<<<<< HEAD
 export default SignupPage;
+=======
+export default SignupPage;
+>>>>>>> origin/michael

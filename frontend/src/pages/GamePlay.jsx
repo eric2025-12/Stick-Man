@@ -68,4 +68,8 @@ function GamePlay() {
   );
 }
 
+<<<<<<< HEAD
 export default GamePlay;
+=======
+export default GamePlay;
+>>>>>>> origin/michael

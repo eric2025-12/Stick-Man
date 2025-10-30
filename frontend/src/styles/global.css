@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 
 /* === Root Variables (Theme Colors & Fonts) === */
 :root {
@@ -324,6 +325,8 @@ h1, h2, h3, h4 {
     flex-direction: column;
   }
 }
+=======
+>>>>>>> origin/michael
 @import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@600&family=Fredoka+One&display=swap');
 
 :root {
@@ -335,39 +338,6 @@ h1, h2, h3, h4 {
   --sky-bottom: #E0F7FA;
   --dark: #222;
   --white: #fff;
-  --shadow: 0 5px 0 rgba(0,0,0,0.4);
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Baloo 2', cursive;
-  background: linear-gradient(to bottom, var(--sky-top), var(--sky-bottom));
-  color: var(--dark);
-  overflow-x: hidden;
-  height: 100vh;
-}
-
-/* floating clouds background layer */
-.bg-clouds {
-  position: absolute;
-  width: 200%;
-  height: 100%;
-  background: url('/images/clouds.png') repeat-x;
-  background-size: contain;
-  animation: floatClouds 40s linear infinite;
-  opacity: 0.6;
-}
-
-@keyframes floatClouds {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-
   --shadow: 0 5px 0 rgba(0,0,0,0.4);
 }
 
