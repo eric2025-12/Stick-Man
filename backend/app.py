@@ -1,12 +1,19 @@
-# src/app.py
+# backend/app.py
+import sys
+import os
 from flask import Flask
+
+# ✅ Add src folder to the Python path BEFORE any imports from it
+sys.path.append(os.path.join(os.path.dirname(__file__), "src"))
+
+# Database
 from src.config.db import db
 
-# Import your Blueprints
-from src.routes.auth_routes import auth_bp
-from src.routes.game_routes import game_bp
-from src.routes.leaderboard_routes import leaderboard_bp
-from src.routes.season_routes import season_bp
+# Blueprints (match your actual filenames)
+from src.routes.authRoutes import auth_bp
+from src.routes.gameRoutes import game_bp
+from src.routes.leaderboardRoutes import leaderboard_bp
+from src.routes.seasonRoutes import season_bp
 
 def create_app():
     app = Flask(__name__)
@@ -32,4 +39,9 @@ def create_app():
     return app
 
 
+# Create the Flask app
 app = create_app()
+
+if __name__ == "__main__":
+    # ✅ Bind to all interfaces to avoid connection refused issues
+    app.run(host="0.0.0.0", port=5000, debug=True)
