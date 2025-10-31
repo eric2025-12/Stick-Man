@@ -1,7 +1,6 @@
-// src/pages/LoginPage.jsx
 import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import AuthContext from "../context/AuthorContext";
+import AuthContext from "../context/AuthContext";
 import HeroBanner from "../components/HeroBanner";
 import loginBg from "../assets/backgrounds/Stickman-Arena-Showdown.png";
 
@@ -29,76 +28,83 @@ function LoginPage() {
   };
 
   const guestLogin = async () => {
-    await login({ username: "Guest" });
-    navigate("/");
+    setError(null);
+    const res = await login({ username: "Guest" });
+    if (res.success) {
+      navigate("/");
+    } else {
+      setError(res.error || "Guest login failed");
+    }
   };
 
   return (
     <div
-      className="relative flex items-center justify-center min-h-screen overflow-hidden"
-      style={{
-        backgroundImage: `url(${loginBg})`,
-        backgroundRepeat: "no-repeat",
-        backgroundSize: "cover",       // ✅ Full screen cover
-        backgroundPosition: "center",  // ✅ Keep image centered
-        backgroundColor: "#000",
-        height: "100vh",
-        width: "100vw",
-      }}
+      className="relative min-h-screen flex items-center justify-center bg-cover bg-center"
+      style={{ backgroundImage: `url(${loginBg})` }}
     >
-      {/* Dark overlay for readability */}
-      <div className="absolute inset-0 bg-black/50" />
+      <div className="absolute inset-0 bg-black opacity-60"></div>
 
-      {/* Centered Content */}
-      <div className="relative z-10 flex flex-col items-center space-y-6">
+      <div className="relative z-10 bg-gray-900 bg-opacity-80 p-8 rounded-2xl shadow-lg w-full max-w-md text-white">
         <HeroBanner />
 
-        <div className="w-full max-w-md p-6 bg-white/90 rounded-lg shadow-lg">
-          <h2 className="text-2xl font-bold text-center mb-4 text-gray-900">
-            Welcome to StickQuest
-          </h2>
+        <h2 className="text-3xl font-bold mb-6 text-center">Login</h2>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+        {error && (
+          <div className="bg-red-600 text-white p-2 rounded mb-4 text-center">
+            {error}
+          </div>
+        )}
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium mb-1">Username</label>
             <input
+              type="text"
               name="username"
               value={form.username}
               onChange={handleChange}
+              className="w-full px-3 py-2 rounded bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
-              placeholder="Username"
-              className="w-full p-3 rounded border"
             />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium mb-1">Password</label>
             <input
+              type="password"
               name="password"
               value={form.password}
               onChange={handleChange}
-              type="password"
+              className="w-full px-3 py-2 rounded bg-gray-800 text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
               required
-              placeholder="Password"
-              className="w-full p-3 rounded border"
             />
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-indigo-600 hover:bg-indigo-700 text-white p-3 rounded"
-            >
-              {loading ? "Logging in..." : "Login"}
-            </button>
-          </form>
-
-          {error && <div className="mt-3 text-red-600 text-sm">{error}</div>}
-
-          <div className="mt-4 flex justify-between items-center text-sm">
-            <Link to="/signup" className="text-indigo-600 hover:underline">
-              Create account
-            </Link>
-            <button
-              onClick={guestLogin}
-              className="text-gray-700 hover:underline"
-            >
-              Continue as Guest
-            </button>
           </div>
-        </div>
+
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded font-semibold transition"
+          >
+            {loading ? "Logging in..." : "Login"}
+          </button>
+        </form>
+
+        <button
+          onClick={guestLogin}
+          className="w-full mt-4 bg-gray-700 hover:bg-gray-800 text-white py-2 rounded font-semibold transition"
+        >
+          Continue as Guest
+        </button>
+
+        <p className="text-center mt-6 text-sm">
+          Don't have an account?{" "}
+          <Link
+            to="/signup"
+            className="text-blue-400 hover:text-blue-300 font-medium"
+          >
+            Sign up
+          </Link>
+        </p>
       </div>
     </div>
   );
