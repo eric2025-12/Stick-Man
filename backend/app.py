@@ -3,13 +3,13 @@ import sys
 import os
 from flask import Flask
 
-# ✅ Add src folder to the Python path BEFORE any imports from it
+#  Add src folder to the Python path BEFORE any imports from it
 sys.path.append(os.path.join(os.path.dirname(__file__), "src"))
 
 # Database
 from src.config.db import db
 
-# Blueprints (match your actual filenames)
+# Blueprints 
 from src.routes.authRoutes import auth_bp
 from src.routes.gameRoutes import game_bp
 from src.routes.leaderboardRoutes import leaderboard_bp
@@ -43,5 +43,5 @@ def create_app():
 app = create_app()
 
 if __name__ == "__main__":
-    # ✅ Bind to all interfaces to avoid connection refused issues
+    #  Bind to all interfaces to avoid connection refused issues
     app.run(host="0.0.0.0", port=5000, debug=True)
